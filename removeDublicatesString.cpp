@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// no extra memory used
+// no extra memory used but O(n2)
 void removeDublicates(string& str)
 {
     if(str == "") return;
@@ -36,6 +36,34 @@ void removeDublicates(string& str)
     }
     
     str = str.substr(0,tail);
+    
+    return;
+}
+
+// used memory but O(n)
+void removeDublicates(string& inputStr)
+{
+    if(inputStr == "") return;
+    if(inputStr.size() < 2) return;
+    
+    array<bool,256> hit;
+    hit.fill(0);
+    
+    hit[inputStr[0] - '0'] = true;
+    int tail = 1;
+    
+    for(int i=1; i < (inputStr.size()); i++)
+    {
+        int index = inputStr[i] - '0';
+        if(!hit[index])
+        {
+            hit[index] = true;
+            inputStr[tail] = inputStr[i];
+            ++tail;
+        }
+    }
+    
+    inputStr = inputStr.substr(0,tail);
     
     return;
 }
